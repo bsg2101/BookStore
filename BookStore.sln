@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Presentation", "BookStore.Presentation\BookStore.Presentation.csproj", "{71F1BC27-BBDF-40F1-81F5-191649C6AF21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Presentation", "BookStore.Presentation\BookStore.Presentation.csproj", "{71F1BC27-BBDF-40F1-81F5-191649C6AF21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Application", "BookStore.Application\BookStore.Application.csproj", "{5CBA02F6-C3C3-4007-852A-11F230219C37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Application", "BookStore.Application\BookStore.Application.csproj", "{5CBA02F6-C3C3-4007-852A-11F230219C37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Domain", "BookStore.Domain\BookStore.Domain.csproj", "{49F5DDBF-7B8A-4A88-B686-A321E8D39399}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Domain", "BookStore.Domain\BookStore.Domain.csproj", "{49F5DDBF-7B8A-4A88-B686-A321E8D39399}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Infrastructure", "BookStore.Infrastructure\BookStore.Infrastructure.csproj", "{6070B4C3-B881-4501-AAF9-420061655F59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Infrastructure", "BookStore.Infrastructure\BookStore.Infrastructure.csproj", "{6070B4C3-B881-4501-AAF9-420061655F59}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BookStore.Frontend", "BookStore.Frontend", "{17596ACB-E0BD-43DC-859B-0DBD625BB306}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "bookstore.react", "BookStore.Frontend\BookStore.React\bookstore.react.esproj", "{42230D6B-B1B3-4BE6-BD3B-485453942CC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,18 @@ Global
 		{6070B4C3-B881-4501-AAF9-420061655F59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6070B4C3-B881-4501-AAF9-420061655F59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6070B4C3-B881-4501-AAF9-420061655F59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42230D6B-B1B3-4BE6-BD3B-485453942CC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42230D6B-B1B3-4BE6-BD3B-485453942CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42230D6B-B1B3-4BE6-BD3B-485453942CC8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{42230D6B-B1B3-4BE6-BD3B-485453942CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42230D6B-B1B3-4BE6-BD3B-485453942CC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42230D6B-B1B3-4BE6-BD3B-485453942CC8}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{42230D6B-B1B3-4BE6-BD3B-485453942CC8} = {17596ACB-E0BD-43DC-859B-0DBD625BB306}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC57E267-BDBB-4EEE-9117-868AB91AB884}

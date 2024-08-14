@@ -1,0 +1,48 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #212529; /* Footer arka plan rengi */
+    color: #f8f9fa; /* Yazı rengi */
+    padding: 1rem 0;
+    z-index: 1000; /* Diğer öğelerin üstünde kalmasını sağlar */
+}
+
+.footer a {
+    color: #adb5bd; /* Link rengi */
+    text-decoration: none; /* Linklerin altı çizgili olmaması için */
+    transition: color 0.3s ease; /* Renk değişiminde yumuşak geçiş */
+}
+
+.footer a:hover {
+    color: #0d6efd; /* Hover durumunda link rengi */
+}
+
+.footer h5 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.footer p {
+    margin-bottom: 0.5rem;
+}
+
+.footer .fab {
+    font-size: 1.5rem; /* Sosyal medya ikonlarının boyutu */
+    transition: color 0.3s ease; /* Renk değişiminde yumuşak geçiş */
+}
+
+.footer .fab:hover {
+    color: #0d6efd; /* Hover durumunda sosyal medya ikonları */
+}
+
+.footer .list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+/* Sayfa içeriği ile footer arasında çakışma olmaması için */
+body {
+    padding-bottom: 80px; /* Footer yüksekliği kadar alt boşluk ekleyin */
+}
