@@ -22,6 +22,10 @@ namespace BookStore.Application.Services
         {
             return await _bookRepository.GetBooksAsync();
         }
+        public async Task<Book> GetBook(int id)
+        {
+            return await _bookRepository.GetBookAsync(id);
+        }
         public async Task AddBook(BookDTO bookDTO)
         {
 

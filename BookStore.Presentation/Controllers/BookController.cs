@@ -22,6 +22,11 @@ namespace BookStore.Presentation.Controllers
         {
             return await _bookService.GetBooks();
         }
+        [HttpGet("{id}")]
+        public async Task<Book> GetBook(int id)
+        {
+            return await _bookService.GetBook(id);
+        }
         [HttpPost]
         public async Task<IActionResult> AddBook(BookDTO bookDTO)
         {
@@ -29,7 +34,6 @@ namespace BookStore.Presentation.Controllers
             {
                 return BadRequest("Invalid book data.");
             }
-
             await _bookService.AddBook(bookDTO);
             return Ok(bookDTO);
         }
@@ -56,9 +60,9 @@ namespace BookStore.Presentation.Controllers
             var result = await _bookService.DeleteBook(id);
             if (result)
             {
-                return Ok();
+                return Ok($"İşlem başarılı {id} numaralı silindi!");
             }
-            return NotFound();
+            return NotFound("id bulunamadı");
         }
     }
 }

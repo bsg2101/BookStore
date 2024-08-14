@@ -24,6 +24,11 @@ namespace BookStore.Infrastructure.Repositories
             List<Book> books = await _context.Books.ToListAsync();
             return books;
         }
+        public async Task<Book> GetBookAsync(int id)
+        {
+            var book = await _context.Books.FindAsync(id);
+            return book;
+        }
         public async Task AddBookAsync(Book book)
         {
             await _context.Books.AddAsync(book);
