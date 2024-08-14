@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace BookStore.Domain.DTOs
 {
-    internal class BookDTO
+    public class BookDTO
     {
+        public int Id { get; set; }
         [Required]
         [MaxLength(50)]
         public string Title { get; set; }
