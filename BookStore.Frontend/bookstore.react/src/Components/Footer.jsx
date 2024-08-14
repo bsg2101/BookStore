@@ -9,28 +9,28 @@ const Footer = () => {
                 <div className="row">
                     <div className="col-lg-4 col-md-6 mb-4">
                         <h5 className="mb-3 text-white">BookStore</h5>
-                        <p className="small text-muted">
+                        <p className="small ">
                             BookStore, en kaliteli kitapları bulabileceğiniz bir platformdur. Bizimle keyifli okumalar!
                         </p>
                     </div>
                     <div className="col-lg-2 col-md-6 mb-4">
                         <h5 className="mb-3 text-white">Hızlı Bağlantılar</h5>
                         <ul className="list-unstyled">
-                            <li><a href="/" className="text-muted">Anasayfa</a></li>
-                            <li><a href="/shop" className="text-muted">Kitaplar</a></li>
-                            <li><a href="/about" className="text-muted">Hakkımızda</a></li>
-                            <li><a href="/contact" className="text-muted">İletişim</a></li>
+                            <li><a href="/" className="">Anasayfa</a></li>
+                            <li><a href="/shop" className="">Kitaplar</a></li>
+                            <li><a href="/about" className="">Hakkımızda</a></li>
+                            <li><a href="/contact" className="">İletişim</a></li>
                         </ul>
                     </div>
                     <div className="col-lg-3 col-md-6 mb-4">
                         <h5 className="mb-3 text-white">İletişim Bilgileri</h5>
-                        <p className="small text-muted">
+                        <p className="small ">
                             Adres: 1234 Kitap Caddesi, İstanbul, Türkiye
                         </p>
-                        <p className="small text-muted">
+                        <p className="small ">
                             Telefon: +90 123 456 7890
                         </p>
-                        <p className="small text-muted">
+                        <p className="small ">
                             E-posta: info@bookstore.com
                         </p>
                     </div>

@@ -1,12 +1,14 @@
 .footer {
-    position: fixed;
+   
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: #212529; /* Footer arka plan rengi */
-    color: #f8f9fa; /* Yazı rengi */
+    background-color: #000000; /* Footer arka plan rengi */
+    color: #adc2d6; /* Yazı rengi */
     padding: 1rem 0;
-    z-index: 1000; /* Diğer öğelerin üstünde kalmasını sağlar */
+   height: 200px;
+    
+
 }
 
 .footer a {
