@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookStore.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class First : Migration
+    public partial class Update : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,9 @@ namespace BookStore.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Author = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PublishedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    PublishedDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

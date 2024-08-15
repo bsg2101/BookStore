@@ -38,7 +38,10 @@ namespace BookStore.Application.Services
             {
                 Title = bookDTO.Title,
                 Author = bookDTO.Author,
-                PublishedDate = bookDTO.PublishedDate
+                Price = bookDTO.Price,
+                PublishedDate = bookDTO.PublishedDate,
+                ImgUrl = bookDTO.ImgUrl
+
             };
             await _bookRepository.AddBookAsync(book);
         }
@@ -55,7 +58,9 @@ namespace BookStore.Application.Services
                 Id = bookDTO.Id,
                 Title = bookDTO.Title,
                 Author = bookDTO.Author,
-                PublishedDate = bookDTO.PublishedDate
+                Price = bookDTO.Price,
+                PublishedDate = bookDTO.PublishedDate,
+                ImgUrl = bookDTO.ImgUrl
             };
             return await _bookRepository.UpdateBookAsync(book);
         }

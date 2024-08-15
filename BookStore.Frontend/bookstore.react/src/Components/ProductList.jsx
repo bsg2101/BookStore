@@ -8,7 +8,7 @@ const ProductList = () => {
 
     useEffect(() => {
         // API çağrısını gerçekleştirme
-        fetch('https://localhost:7026/api/Book')  // Buraya API URL'nizi koyun
+        fetch('https://www.arkabahcemiz.com.tr/api/Book')  // Buraya API URL'nizi koyun
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

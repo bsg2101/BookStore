@@ -17,7 +17,11 @@ namespace BookStore.Domain.DTOs
         [MaxLength(50)]
         public string Author { get; set; }
         [Required]
-        public DateTime PublishedDate { get; set; }
+        public int Price { get; set; }
+        [Required]
+        public DateOnly PublishedDate { get; set; }
+        [Required]
+        public string ImgUrl { get; set; }
 
 
     }

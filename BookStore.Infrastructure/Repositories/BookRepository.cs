@@ -48,8 +48,9 @@ namespace BookStore.Infrastructure.Repositories
                 // Güncelleme işlemleri
                 entity.Title = book.Title;
                 entity.Author = book.Author;
+                entity.Price = book.Price;
                 entity.PublishedDate = book.PublishedDate;
-
+                entity.ImgUrl = book.ImgUrl;
                 await _context.SaveChangesAsync();
                 return true;
             }

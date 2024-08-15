@@ -35,8 +35,15 @@ namespace BookStore.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("PublishedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ImgUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("PublishedDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Title")
                         .IsRequired()
