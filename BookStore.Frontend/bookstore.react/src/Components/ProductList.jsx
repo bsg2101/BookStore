@@ -1,150 +1,241 @@
-// src/components/ProductList.js
-import React, { useEffect, useState } from 'react';
-import ProductCard from './ProductCart';
-
-import "./css/ProductList.css";
-
+import React, { useState, useEffect } from 'react';
+import { getBooks, addBook, updateBook, deleteBook } from "../Service/bookService";
+import BookCard from './BookCard';
+import './css/ProductList.css';
 
 const ProductList = () => {
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [editingBook, setEditingBook] = useState(null);
-    const [error, setError] = useState(null); // Added for error handling
+    const [error, setError] = useState(null);
+    const [formError, setFormError] = useState(''); // Form hataları için ekledik
+    const [addingBook, setAddingBook] = useState(false);
+    const [editingBook, setEditingBook] = useState(null); // Güncellenen kitap bilgisi
+    const [deletingBook, setDeletingBook] = useState(null); // Silinecek kitap bilgisi
+    const [newBook, setNewBook] = useState({
+        title: '',
+        author: '',
+        price: 0,
+        publishedDate: '',
+        imgUrl: ''
+    });
 
-    // Fetch books from API
     useEffect(() => {
-        const fetchBooks = async () => {
+        const fetchData = async () => {
             try {
-                const response = await fetch('https://localhost:7026/api/Book');
-                if (!response.ok) throw new Error('Network response was not ok');
-                const data = await response.json();
-                console.log('Fetched books:', data); // Log data to check structure
-                setBooks(data);
+                const books = await getBooks();
+                setBooks(books);
             } catch (error) {
-                console.error('Error fetching books:', error);
-                setError('Failed to load books');
+                setError(error.message);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchBooks();
+        fetchData();
     }, []);
 
-
-    // Handle update book
-    const handleUpdate = (book) => {
-        setEditingBook({ ...book });
+    const validateForm = () => {
+        if (!newBook.title || !newBook.author || !newBook.price || !newBook.publishedDate || !newBook.imgUrl) {
+            setFormError('Lütfen tüm alanları doldurun.');
+            return false;
+        }
+        setFormError('');
+        return true;
     };
 
-    // Save updated book to API
-    const handleSaveUpdate = async (e) => {
-        e.preventDefault(); // Prevent form default behavior
-        if (editingBook) {
-            try {
-                const response = await fetch('https://localhost:7026/api/Book', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(editingBook),
-                });
+    const handleAddBook = async (e) => {
+        e.preventDefault();
+        if (!validateForm()) return;
 
-                if (!response.ok) throw new Error('Network response was not ok');
-                const updatedBook = await response.json();
-                console.log('Updated book:', updatedBook);
-
-                setBooks((prevBooks) =>
-                    prevBooks.map((book) =>
-                        book.id === updatedBook.id ? updatedBook : book
-                    )
-                );
-
-                setEditingBook(null);
-            } catch (error) {
-                console.error('Error updating book:', error);
-                setError('Failed to update book'); // Set error message
-            }
+        try {
+            const addedBook = await addBook(newBook);
+            setBooks([...books, addedBook]);
+            setAddingBook(false);
+            setNewBook({
+                title: '',
+                author: '',
+                price: 0,
+                publishedDate: '',
+                imgUrl: ''
+            });
+        } catch (error) {
+            setError(error.message);
         }
     };
 
-    // Handle delete book
-    const handleDelete = async (bookId) => {
-        if (window.confirm('Are you sure you want to delete this book?')) {
-            try {
-                const response = await fetch(`https://localhost:7026/api/Book/${bookId}`, {
-                    method: 'DELETE',
-                });
+    const handleUpdateBook = async (e) => {
+        e.preventDefault();
 
-                if (!response.ok) throw new Error('Network response was not ok');
+        if (!editingBook.title || !editingBook.author || !editingBook.price || !editingBook.publishedDate || !editingBook.imgUrl) {
+            setFormError('Lütfen tüm alanları doldurun.');
+            return;
+        }
 
-                // Remove book from local state
-                setBooks((prevBooks) => prevBooks.filter(book => book.id !== bookId));
-            } catch (error) {
-                console.error('Error deleting book:', error);
-                setError('Failed to delete book'); // Set error message
-            }
+        try {
+            const updatedBook = await updateBook(editingBook.id, editingBook);
+            setBooks(books.map((book) => (book.id === updatedBook.id ? updatedBook : book)));
+            setEditingBook(null); // Güncelleme başarılı olursa modalı kapat
+            setFormError(''); // Hata mesajını temizle
+        } catch (error) {
+            setError(error.message);
         }
     };
 
-    if (loading) {
-        return <p>Loading...</p>;
-    }
+    const handleDeleteBook = async () => {
+        if (!deletingBook) return;
 
-    if (error) {
-        return <p>{error}</p>; // Display error message
-    }
+        try {
+            await deleteBook(deletingBook.id);
+            setBooks(books.filter((book) => book.id !== deletingBook.id));
+            setDeletingBook(null); // Silme işlemi tamamlanınca modalı kapat
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    if (loading) return <p>Yükleniyor...</p>;
+    if (error) return <p>{error}</p>;
 
     return (
         <div className="product-list">
+            <div className="header">
+                <button className="btn btn-add" onClick={() => setAddingBook(true)}>+ Kitap Ekle</button>
+            </div>
             <div className="product-list-grid">
-                {books.map(book => (
-                    <ProductCard
+                {books.map((book) => (
+                    <BookCard
                         key={book.id}
                         book={book}
-                        onUpdate={() => handleUpdate(book)}
-                        onDelete={() => handleDelete(book.id)}
+                        onUpdate={() => setEditingBook(book)}
+                        onDelete={() => setDeletingBook(book)} // Silme işleminde modalı tetikleyin
                     />
                 ))}
             </div>
 
+            {addingBook && (
+                <div className="modal-overlay">
+                    <div className="modal-contents">
+                        <h2>Yeni Kitap Ekle</h2>
+                        {formError && <p className="form-error">{formError}</p>} {/* Form hatası gösterimi */}
+                        <form onSubmit={handleAddBook}>
+                            <label>
+                                Başlık:
+                                <input
+                                    type="text"
+                                    value={newBook.title}
+                                    onChange={(e) => setNewBook({ ...newBook, title: e.target.value })}
+                                />
+                            </label>
+                            <label>
+                                Yazar:
+                                <input
+                                    type="text"
+                                    value={newBook.author}
+                                    onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
+                                />
+                            </label>
+                            <label>
+                                Fiyat:
+                                <input
+                                    type="number"
+                                    value={newBook.price}
+                                    onChange={(e) => setNewBook({ ...newBook, price: parseInt(e.target.value) })}
+                                />
+                            </label>
+                            <label>
+                                Yayın Tarihi:
+                                <input
+                                    type="date"
+                                    value={newBook.publishedDate}
+                                    onChange={(e) => setNewBook({ ...newBook, publishedDate: e.target.value })}
+                                />
+                            </label>
+                            <label>
+                                Resim URL:
+                                <input
+                                    type="text"
+                                    value={newBook.imgUrl}
+                                    onChange={(e) => setNewBook({ ...newBook, imgUrl: e.target.value })}
+                                />
+                            </label>
+                            <div className="modal-buttons">
+                                <button type="submit" className="btn btn-update">Ekle</button>
+                                <button type="button" className="btn btn-delete" onClick={() => setAddingBook(false)}>İptal</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
             {editingBook && (
                 <div className="modal-overlay">
                     <div className="modal-contents">
-                        <h2>Update Book</h2>
-                        <form onSubmit={handleSaveUpdate}>
+                        <h2>Kitabı Güncelle</h2>
+                        {formError && <p className="form-error">{formError}</p>} {/* Form hatası gösterimi */}
+                        <form onSubmit={handleUpdateBook}>
                             <label>
-                                Title:
+                                Başlık:
                                 <input
                                     type="text"
-                                    name="title"
                                     value={editingBook.title}
                                     onChange={(e) => setEditingBook({ ...editingBook, title: e.target.value })}
                                 />
                             </label>
                             <label>
-                                Author:
+                                Yazar:
                                 <input
                                     type="text"
-                                    name="author"
                                     value={editingBook.author}
                                     onChange={(e) => setEditingBook({ ...editingBook, author: e.target.value })}
                                 />
                             </label>
-                            {/* Add other form fields here */}
+                            <label>
+                                Fiyat:
+                                <input
+                                    type="number"
+                                    value={editingBook.price}
+                                    onChange={(e) => setEditingBook({ ...editingBook, price: parseInt(e.target.value) })}
+                                />
+                            </label>
+                            <label>
+                                Yayın Tarihi:
+                                <input
+                                    type="date"
+                                    value={editingBook.publishedDate}
+                                    onChange={(e) => setEditingBook({ ...editingBook, publishedDate: e.target.value })}
+                                />
+                            </label>
+                            <label>
+                                Resim URL:
+                                <input
+                                    type="text"
+                                    value={editingBook.imgUrl}
+                                    onChange={(e) => setEditingBook({ ...editingBook, imgUrl: e.target.value })}
+                                />
+                            </label>
                             <div className="modal-buttons">
-                                <button type="submit" className="btn btn-update">Save</button>
-                                <button type="button" className="btn btn-delete" onClick={() => setEditingBook(null)}>Cancel</button>
+                                <button type="submit" className="btn btn-update">Güncelle</button>
+                                <button type="button" className="btn btn-delete" onClick={() => setEditingBook(null)}>İptal</button>
                             </div>
                         </form>
                     </div>
                 </div>
-
             )}
 
+            {deletingBook && (
+                <div className="modal-overlay">
+                    <div className="modal-contents">
+                        <h2>Silme Onayı</h2>
+                        <p>"{deletingBook.title}" isimli kitabı silmek istediğinize emin misiniz?</p>
+                        <div className="modal-buttons">
+                            <button className="btn btn-update" onClick={handleDeleteBook}>Evet, Sil</button>
+                            <button className="btn btn-delete" onClick={() => setDeletingBook(null)}>İptal</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
-}
+};
 
 export default ProductList;
-
-
-

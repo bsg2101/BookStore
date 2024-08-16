@@ -7,13 +7,13 @@ const Footer = () => {
         <footer className="footer bg-dark text-light py-5">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 mb-4">
+                    <div className="col-lg-6 col-md-6 mb-4">
                         <h5 className="mb-3 text-white">BookStore</h5>
                         <p className="small ">
                             BookStore, en kaliteli kitapları bulabileceğiniz bir platformdur. Bizimle keyifli okumalar!
                         </p>
                     </div>
-                    <div className="col-lg-2 col-md-6 mb-4">
+                    {/* <div className="col-lg-2 col-md-6 mb-4">
                         <h5 className="mb-3 text-white">Hızlı Bağlantılar</h5>
                         <ul className="list-unstyled">
                             <li><a href="/" className="">Anasayfa</a></li>
@@ -21,7 +21,7 @@ const Footer = () => {
                             <li><a href="/about" className="">Hakkımızda</a></li>
                             <li><a href="/contact" className="">İletişim</a></li>
                         </ul>
-                    </div>
+                    </div> */}
                     <div className="col-lg-3 col-md-6 mb-4">
                         <h5 className="mb-3 text-white">İletişim Bilgileri</h5>
                         <p className="small ">
@@ -31,16 +31,15 @@ const Footer = () => {
                             Telefon: +90 123 456 7890
                         </p>
                         <p className="small ">
-                            E-posta: info@bookstore.com
+                            E-posta: info@arkabahcemiz.com.tr
                         </p>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <h5 className="mb-3 text-white">Bizi Takip Edin</h5>
                         <div className="d-flex">
-                            <a href="#" className="text-light me-3"><i className="fab fa-facebook fa-lg"></i></a>
-                            <a href="#" className="text-light me-3"><i className="fab fa-twitter fa-lg"></i></a>
-                            <a href="#" className="text-light me-3"><i className="fab fa-instagram fa-lg"></i></a>
-                            <a href="#" className="text-light"><i className="fab fa-linkedin fa-lg"></i></a>
+                            <a href="https://github.com/bsg2101" className="text-light me-3" target='_blank'><i className="fab fa-github fa-lg"></i></a>
+                            <a href="https://www.instagram.com/brnsmhg/?igsh=emUwbHJoamFndWsz" className="text-light me-3" target='_blank'><i className="fab fa-instagram fa-lg"></i></a>
+                            <a href="https://www.linkedin.com/in/bsg2101/" className="text-light" target='_blank'><i className="fab fa-linkedin fa-lg"></i></a>
                         </div>
                     </div>
                 </div>

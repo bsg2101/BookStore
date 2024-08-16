@@ -1,0 +1,62 @@
+/* Sayfanın tamamını kapsayan flex düzeni */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Sayfanın tamamını kapsar */
+}
+
+.container {
+    flex: 1; /* İçerik alanı esnek olur, boşluk varsa doldurur */
+    padding-bottom: 20px; /* Footer'a ekstra boşluk bırakmak için */
+}
+
+/* Footer */
+.footer {
+    background-color: #000000; /* Footer arka plan rengi */
+    color: #adc2d6; /* Yazı rengi */
+    padding: 1rem 0;
+    height: 200px;
+    width: 100%;
+}
+
+.footer a {
+    color: #adb5bd;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #0d6efd;
+}
+
+.footer h5 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.footer p {
+    margin-bottom: 0.5rem;
+}
+
+.footer .fab {
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.footer .fab:hover {
+    color: #0d6efd;
+}
+
+.footer .list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+.text-center {
+    margin-top: auto; /* Footer'ın altta durmasını sağlar */
+}

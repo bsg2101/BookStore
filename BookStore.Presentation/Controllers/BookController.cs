@@ -1,73 +1,73 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using BookStore.Application.Services;
-using BookStore.Domain.DTOs;
-using BookStore.Domain.Entitess;
+﻿    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using BookStore.Application.Services;
+    using BookStore.Domain.DTOs;
+    using BookStore.Domain.Entitess;
 
-namespace BookStore.Presentation.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class BookController : ControllerBase
+    namespace BookStore.Presentation.Controllers
     {
-        private readonly BookService _bookService;
+        [Route("api/[controller]")]
+        [ApiController]
+        public class BookController : ControllerBase
+        {
+            private readonly BookService _bookService;
 
-        public BookController(BookService bookService)
-        {
-            _bookService = bookService;
-        }
-
-        [HttpGet]
-        public async Task<IEnumerable<Book>> GetBooks()
-        {
-            return await _bookService.GetBooks();
-        }
-        [HttpGet("{id}")]
-        public async Task<Book> GetBook(int id)
-        {
-            return await _bookService.GetBook(id);
-        }
-        [HttpPost]
-        public async Task<IActionResult> AddBook([FromBody] BookDTO bookDTO)
-        {
-            if (!ModelState.IsValid)
+            public BookController(BookService bookService)
             {
-                return BadRequest(ModelState);
+                _bookService = bookService;
             }
 
-            var response = await _bookService.AddBook(bookDTO);
-            if (response == null)
+            [HttpGet]
+            public async Task<IEnumerable<Book>> GetBooks()
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Book could not be added.");
+                return await _bookService.GetBooks();
             }
-            return CreatedAtAction(nameof(GetBook), new { id = response.Id }, response);
-        }
+            [HttpGet("{id}")]
+            public async Task<Book> GetBook(int id)
+            {
+                return await _bookService.GetBook(id);
+            }
+            [HttpPost]
+            public async Task<IActionResult> AddBook([FromBody] BookDTO bookDTO)
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBook(int id, BookDTO bookDTO)
-        {
-            if (id != bookDTO.Id)
-            {
-                return BadRequest("Book ID mismatch.");
+                var response = await _bookService.AddBook(bookDTO);
+                if (response == null)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Book could not be added.");
+                }
+                return CreatedAtAction(nameof(GetBook), new { id = response.Id }, response);
             }
 
-            var result = await _bookService.UpdateBook(bookDTO);
-            if (result != null)
+            [HttpPut("{id}")]
+            public async Task<IActionResult> UpdateBook(int id, BookDTO bookDTO)
             {
-                return Ok(result);
-            }
-            return NotFound();
-        }
+                if (id != bookDTO.Id)
+                {
+                    return BadRequest(new {message = "Book ID mismatch." });
+                }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBook(int id)
-        {
-            var result = await _bookService.DeleteBook(id);
-            if (result)
-            {
-                return Ok($"İşlem başarılı {id} numaralı silindi!");
+                var result = await _bookService.UpdateBook(bookDTO);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return NotFound();
             }
-            return NotFound("id bulunamadı");
+
+            [HttpDelete("{id}")]
+            public async Task<IActionResult> DeleteBook(int id)
+            {
+                var result = await _bookService.DeleteBook(id);
+                if (result)
+                {
+                    return Ok(new {message = $"İşlem başarılı {id} numaralı silindi!" });
+                }
+                return NotFound(new {message = $"{id} numaralı id bulunamadı"});
+            }
         }
     }
-}

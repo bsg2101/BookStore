@@ -1,9 +1,7 @@
-// src/components/ProductCard.js
 import React from 'react';
-import "./css/ProductCard.css";
+import "./css/BookCard.css";
 
-const ProductCard = ({ book, onUpdate, onDelete }) => {
-    // Date formatting function
+const BookCard = ({ book, onUpdate, onDelete }) => {
     const formatDate = (date) => {
         return new Date(date).toLocaleDateString();
     };
@@ -13,26 +11,26 @@ const ProductCard = ({ book, onUpdate, onDelete }) => {
             <img src={book.imgUrl} alt={book.title} className="card-img-top" />
             <div className="card-body">
                 <h5 className="card-title">{book.title}</h5>
-                <p className="card-text text-muted">Author: {book.author}</p>
-                <p className="card-text text-muted">Price: ${book.price}</p>
-                <p className="card-text text-muted">Published Date: {formatDate(book.publishedDate)}</p>
+                <p className="card-text text-muted">Yazar: {book.author}</p>
+                <p className="card-text text-muted">Fiyat: {book.price} ₺</p>
+                <p className="card-text text-muted">Yayın Tarihi: {formatDate(book.publishedDate)}</p>
                 <div className="button-group">
                     <button
-                        className="btn btn-update"
+                        className="card-btn card-btn-update"
                         onClick={onUpdate}
                     >
-                        Update
+                        Güncelle
                     </button>
                     <button
-                        className="btn btn-delete"
+                        className="card-btn card-btn-delete"
                         onClick={onDelete}
                     >
-                        Delete
+                        Sil
                     </button>
                 </div>
             </div>
         </div>
     );
-}
+};
 
-export default ProductCard;
+export default BookCard;

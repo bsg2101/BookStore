@@ -1,24 +1,9 @@
+/* Genel Footer Stil */
 .footer {
-   
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #000000; /* Footer arka plan rengi */
-    color: #adc2d6; /* Yazı rengi */
-    padding: 1rem 0;
-   height: 200px;
-    
-
-}
-
-.footer a {
-    color: #adb5bd; /* Link rengi */
-    text-decoration: none; /* Linklerin altı çizgili olmaması için */
-    transition: color 0.3s ease; /* Renk değişiminde yumuşak geçiş */
-}
-
-.footer a:hover {
-    color: #0d6efd; /* Hover durumunda link rengi */
+    background-color: #000000;
+    color: #adc2d6;
+    padding: 2rem 0;
+    position: relative;
 }
 
 .footer h5 {
@@ -30,21 +15,65 @@
     margin-bottom: 0.5rem;
 }
 
+.footer a {
+    color: #adb5bd;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #0d6efd;
+}
+
 .footer .fab {
-    font-size: 1.5rem; /* Sosyal medya ikonlarının boyutu */
-    transition: color 0.3s ease; /* Renk değişiminde yumuşak geçiş */
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
 }
 
 .footer .fab:hover {
-    color: #0d6efd; /* Hover durumunda sosyal medya ikonları */
+    color: #0d6efd;
 }
 
-.footer .list-unstyled {
-    padding-left: 0;
-    list-style: none;
+/* Mobil ve küçük ekranlar için düzenleme */
+@media (max-width: 767px) {
+    .footer .row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer .col-lg-4,
+    .footer .col-lg-2,
+    .footer .col-lg-3 {
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+    }
 }
 
-/* Sayfa içeriği ile footer arasında çakışma olmaması için */
+/* Orta boyutlu ekranlar (tabletler) için düzenleme */
+@media (min-width: 768px) and (max-width: 991px) {
+    .footer .col-md-6 {
+        flex: 1 1 50%;
+    }
+}
+
+/* Büyük ekranlar için düzenleme */
+@media (min-width: 992px) {
+    .footer .col-lg-4 {
+        flex: 1 1 33.333%;
+    }
+
+    .footer .col-lg-2 {
+        flex: 1 1 16.666%;
+    }
+
+    .footer .col-lg-3 {
+        flex: 1 1 25%;
+    }
+}
+
+/* Footer içeriği ve body arasında çakışmayı önlemek için */
 body {
-    padding-bottom: 80px; /* Footer yüksekliği kadar alt boşluk ekleyin */
+    padding-bottom: 200px; /* Footer yüksekliği kadar boşluk bırak */
 }

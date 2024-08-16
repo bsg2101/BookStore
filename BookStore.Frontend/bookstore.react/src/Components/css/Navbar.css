@@ -1,6 +1,7 @@
 /* Genel navbar stilleri */
 .navbar {
     background-color: #212529; /* Koyu arka plan rengi */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Hafif gölge */
 }
 
 .navbar-brand h1 {
@@ -8,32 +9,35 @@
     font-weight: 800;
     color: #fff;
     margin: 0;
-    font-size: 1.8rem; /* Başlık boyutunu biraz büyüttüm */
+    font-size: 2rem; /* Başlık boyutunu biraz büyüttüm */
+    letter-spacing: 1px; /* Harfler arasına boşluk ekledim */
+    transition: color 0.3s ease; /* Başlığa geçiş efekti ekledim */
 }
 
 .nav-link {
     position: relative;
     font-size: 1.1rem; /* Linklerin boyutunu büyüttüm */
     padding: 10px 15px;
-    color: #fff !important;
-    transition: color 0.3s ease;
+    color: #adb5bd !important; /* Link rengi */
+    transition: color 0.3s ease, transform 0.3s ease; /* Geçiş efektleri */
 }
 
 .nav-link:hover, .nav-link.active {
     color: #0d6efd !important; /* Bootstrap'in mavi rengi */
+    transform: translateY(-2px); /* Hover sırasında hafif yukarı kayma */
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
     left: 0;
-    bottom: 0;
+    bottom: -2px;
     height: 2px;
     width: 100%;
     background-color: #0d6efd;
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease; /* Daha yumuşak geçiş */
 }
 
 .nav-link:hover::after, .nav-link.active::after {
@@ -45,15 +49,18 @@
 .dropdown-menu {
     background-color: #343a40; /* Koyu dropdown arka plan rengi */
     border: none;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Dropdown'a gölge ekledim */
 }
 
 .dropdown-item {
-    color: #fff;
-    transition: background-color 0.3s ease;
+    color: #adb5bd;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Geçiş efektleri */
 }
 
 .dropdown-item:hover {
     background-color: #495057;
+    color: #0d6efd; /* Hover sırasında renk değişimi */
 }
 
 /* İkon stilleri */
@@ -61,14 +68,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px;
+    padding: 8px 15px;
     border-radius: 50px; /* Butonları yuvarlattım */
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; /* Ekstra geçiş efektleri */
 }
 
 .btn-outline-light:hover {
     background-color: #0d6efd;
     color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Hover sırasında gölge */
 }
 
 .fas {
@@ -76,5 +84,12 @@
 }
 
 .btn-outline-light:hover .fas {
-    transform: scale(1.2);
+    transform: scale(1.2) rotate(10deg); /* Hafif döndürme ve büyütme efekti */
+}
+
+/* Navbar geniş ekranlar için */
+@media (min-width: 992px) {
+    .navbar-nav .nav-link {
+        padding: 12px 20px;
+    }
 }
