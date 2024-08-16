@@ -20,10 +20,8 @@ namespace BookStore.Domain.Entitess
         [Required]
         public int Price { get; set; }
         [Required]
-        public DateOnly PublishedDate { get; set; }
+        public DateTime PublishedDate { get; set; }
         [Required]
         public string ImgUrl { get; set; }
-
-
     }
 }

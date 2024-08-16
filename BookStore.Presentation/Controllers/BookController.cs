@@ -28,14 +28,19 @@ namespace BookStore.Presentation.Controllers
             return await _bookService.GetBook(id);
         }
         [HttpPost]
-        public async Task<IActionResult> AddBook(BookDTO bookDTO)
+        public async Task<IActionResult> AddBook([FromBody] BookDTO bookDTO)
         {
-            if (bookDTO == null)
+            if (!ModelState.IsValid)
             {
-                return BadRequest("Invalid book data.");
+                return BadRequest(ModelState);
             }
-            await _bookService.AddBook(bookDTO);
-            return Ok(bookDTO);
+
+            var response = await _bookService.AddBook(bookDTO);
+            if (response == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Book could not be added.");
+            }
+            return CreatedAtAction(nameof(GetBook), new { id = response.Id }, response);
         }
 
         [HttpPut("{id}")]
@@ -47,9 +52,9 @@ namespace BookStore.Presentation.Controllers
             }
 
             var result = await _bookService.UpdateBook(bookDTO);
-            if (result)
+            if (result != null)
             {
-                return Ok();
+                return Ok(result);
             }
             return NotFound();
         }

@@ -16,7 +16,10 @@ function App() {
   return (
     <>
       <Navbar />
+      <div className='container'>
       <ProductList />
+
+      </div>
       <Footer />
     </>
   );

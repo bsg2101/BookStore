@@ -29,12 +29,22 @@ namespace BookStore.Infrastructure.Repositories
             var book = await _context.Books.FindAsync(id);
             return book;
         }
-        public async Task AddBookAsync(Book book)
+        public async Task<Book> AddBookAsync(Book book)
         {
-            await _context.Books.AddAsync(book);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var entity = await _context.Books.AddAsync(book);
+                await _context.SaveChangesAsync();
+                return entity.Entity;
+            }
+            catch (Exception ex)
+            {
+                // Hata yönetimi
+                // Loglama veya kullanıcıya hata bilgisi verme işlemleri yapılabilir
+                return null;
+            }
         }
-        public async Task<bool> UpdateBookAsync(Book book)
+        public async Task<Book> UpdateBookAsync(Book book)
         {
             try
             {
@@ -42,7 +52,7 @@ namespace BookStore.Infrastructure.Repositories
 
                 if (entity == null)
                 {
-                    return false;
+                    return null;
                 }
 
                 // Güncelleme işlemleri
@@ -52,13 +62,13 @@ namespace BookStore.Infrastructure.Repositories
                 entity.PublishedDate = book.PublishedDate;
                 entity.ImgUrl = book.ImgUrl;
                 await _context.SaveChangesAsync();
-                return true;
+                return entity;
             }
             catch (Exception ex)
             {
                 // Hata yönetimi
                 // Loglama veya kullanıcıya hata bilgisi verme işlemleri yapılabilir
-                return false;
+                return null;
             }
         }
         public async Task<bool> DeleteBookAsync(int id)

@@ -12,14 +12,14 @@ namespace BookStore.Domain.DTOs
         public int Id { get; set; }
         [Required]
         [MaxLength(50)]
-        public string Title { get; set; }
+        public string Title { get; set; } 
         [Required]
         [MaxLength(50)]
-        public string Author { get; set; }
+        public string Author { get; set; } 
         [Required]
         public int Price { get; set; }
         [Required]
-        public DateOnly PublishedDate { get; set; }
+        public DateTime PublishedDate { get; set; }
         [Required]
         public string ImgUrl { get; set; }
 

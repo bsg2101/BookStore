@@ -26,14 +26,13 @@ namespace BookStore.Application.Services
         {
             return await _bookRepository.GetBookAsync(id);
         }
-        public async Task AddBook(BookDTO bookDTO)
-        {
 
-            if (string.IsNullOrEmpty(bookDTO.Title) || string.IsNullOrEmpty(bookDTO.Author))
+        public async Task<BookDTO> AddBook(BookDTO bookDTO)
+        {
+            if (bookDTO == null)
             {
-                throw new ArgumentException("Book title and author are required.");
+                throw new ArgumentException("Invalid book data.");
             }
-            // Mapping DTO to Entity
             var book = new Book
             {
                 Title = bookDTO.Title,
@@ -41,18 +40,18 @@ namespace BookStore.Application.Services
                 Price = bookDTO.Price,
                 PublishedDate = bookDTO.PublishedDate,
                 ImgUrl = bookDTO.ImgUrl
-
             };
             await _bookRepository.AddBookAsync(book);
+            bookDTO.Id = book.Id;
+            return bookDTO;
         }
 
-        public async Task<bool> UpdateBook(BookDTO bookDTO)
+        public async Task<BookDTO> UpdateBook(BookDTO bookDTO)
         {
             if (bookDTO == null || bookDTO.Id <= 0)
             {
                 throw new ArgumentException("Invalid book data.");
             }
-
             var book = new Book
             {
                 Id = bookDTO.Id,
@@ -62,7 +61,13 @@ namespace BookStore.Application.Services
                 PublishedDate = bookDTO.PublishedDate,
                 ImgUrl = bookDTO.ImgUrl
             };
-            return await _bookRepository.UpdateBookAsync(book);
+            var response = await _bookRepository.UpdateBookAsync(book);
+            if (response == null)
+            {
+                return null;
+            }
+            bookDTO.Id = response.Id;
+            return bookDTO;
         }
 
         public async Task<bool> DeleteBook(int id)
