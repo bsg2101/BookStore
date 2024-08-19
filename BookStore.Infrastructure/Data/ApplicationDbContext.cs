@@ -13,7 +13,6 @@ namespace BookStore.Infrastructure.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-
         public DbSet<Book> Books { get; set; }
         public DbSet<Contact> Contacts { get; set; }
     }

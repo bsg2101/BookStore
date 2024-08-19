@@ -34,7 +34,7 @@ namespace BookStore.Infrastructure.Repositories
         {
            var addContact = _context.Contacts.AddAsync(contact);
            await _context.SaveChangesAsync();
-            return addContact.IsCompletedSuccessfully ? addContact.Result.Entity : null;
+           return addContact.IsCompletedSuccessfully ? addContact.Result.Entity : null;
         }
 
         public async Task UpdateContactAsync(Contact contact)
