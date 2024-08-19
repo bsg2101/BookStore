@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Domain.Entitess
 {
-    class Contact
+   public class Contact
     {
         [Key]
         public int Id { get; set; }

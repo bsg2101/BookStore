@@ -15,6 +15,6 @@ namespace BookStore.Infrastructure.Data
         }
 
         public DbSet<Book> Books { get; set; }
-      public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
     }
 }
